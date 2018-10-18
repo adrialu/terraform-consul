@@ -40,5 +40,5 @@ resource "openstack_compute_secgroup_v2" "remote" {
 module "consul" {
   source  = "modules/consul"
   router  = "${openstack_networking_router_v2.router.id}"
-  keypair = "${openstack_compute_keypair_v2.key-adrialu.name}"
+  keypair = "${openstack_compute_keypair_v2.remote.name}"
 }
