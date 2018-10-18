@@ -34,3 +34,7 @@ variable "os_keys" {
   type        = "map"
   description = "Public key pairs used to access the OpenStack instances."
 }
+
+variable "os_external_network" {
+  description = "Network ID to attach the router to"
+}
