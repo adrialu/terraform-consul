@@ -19,13 +19,13 @@ variable "router" {
 
 variable "subnet_cidr" {
   description = "The address space for the Consul network"
-  default = "192.168.100.0/24"
+  default     = "192.168.100.0/24"
 }
 
 variable "nameservers" {
   description = "The nameservers used by the Consul network"
-  type    = "list"
-  default = ["1.1.1.1", "1.0.0.1"]
+  type        = "list"
+  default     = ["1.1.1.1", "1.0.0.1"]
 }
 
 variable "keypair" {
