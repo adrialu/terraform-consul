@@ -17,13 +17,9 @@ resource "openstack_networking_router_v2" "router" {
   external_network_id = "${var.os_external_network}"
 }
 
-# create keypairs for ourselves, from vars
-resource "openstack_compute_keypair_v2" "key-adrialu" {
-  name       = "adrialu"
-  public_key = "${var.os_keys["adrialu"]}"
+# create keypair
+resource "openstack_compute_keypair_v2" "remote" {
+  name       = "remote"
+  public_key = "${var.os_keypair}"
 }
 
-resource "openstack_compute_keypair_v2" "key-vetletm" {
-  name       = "vetletm"
-  public_key = "${var.os_keys["vetletm"]}"
-}
