@@ -1,3 +1,8 @@
+variable "replicas" {
+  description = "Number of servers to create"
+  default     = "3"
+}
+
 variable "image_name" {
   description = "Name of image to use for Consul servers"
   default     = "Ubuntu Server 18.04 LTS (Bionic Beaver) amd64"
