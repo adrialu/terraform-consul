@@ -7,3 +7,9 @@ os_username = ""
 os_password = ""
 os_user_domain_name = ""
 os_project_domain_id = ""
+
+# OpenStack configurables
+os_keys = {
+  keyname1 = "ssh-rsa ..."
+  keyname2 = "ssh-rsa ..."
+}
