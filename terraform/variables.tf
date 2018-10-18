@@ -29,3 +29,8 @@ variable "os_user_domain_name" {
 variable "os_project_domain_id" {
   description = "The domain ID where the project is located. Same as OS_PROJECT_DOMAIN_ID environment variable."
 }
+
+variable "os_keys" {
+  type        = "map"
+  description = "Public key pairs used to access the OpenStack instances."
+}
