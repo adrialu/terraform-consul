@@ -14,7 +14,7 @@ provider "openstack" {
 resource "openstack_networking_router_v2" "router" {
   name                = "router1"
   admin_state_up      = "true"
-  external_network_id = "730cb16e-a460-4a87-8c73-50a2cb2293f9" # ntnu-internal
+  external_network_id = "${var.os_external_network}"
 }
 
 # create keypairs for ourselves, from vars
