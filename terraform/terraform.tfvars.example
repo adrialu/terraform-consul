@@ -1,0 +1,9 @@
+# OpenStack v3 cloud credentials (same as their uppercase equivalent environment variables)
+os_auth_url = ""
+os_region_name = ""
+os_project_id = ""
+os_project_name = ""
+os_username = ""
+os_password = ""
+os_user_domain_name = ""
+os_project_domain_id = ""
