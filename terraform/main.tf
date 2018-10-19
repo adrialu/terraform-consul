@@ -48,3 +48,9 @@ module "web" {
   router  = "${openstack_networking_router_v2.router.id}"
   keypair = "${openstack_compute_keypair_v2.remote.name}"
 }
+
+module "haproxy" {
+  source  = "modules/haproxy"
+  router  = "${openstack_networking_router_v2.router.id}"
+  keypair = "${openstack_compute_keypair_v2.remote.name}"
+}
