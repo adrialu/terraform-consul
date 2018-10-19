@@ -35,3 +35,10 @@ resource "openstack_compute_secgroup_v2" "remote" {
     cidr        = "0.0.0.0/0"
   }
 }
+
+# use modules to segregate the project a bit
+module "consul" {
+  source  = "modules/consul"
+  router  = "${openstack_networking_router_v2.router.id}"
+  keypair = "${openstack_compute_keypair_v2.remote.name}"
+}
