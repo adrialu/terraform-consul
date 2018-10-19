@@ -10,6 +10,8 @@ resource "openstack_compute_instance_v2" "consul_server" {
     # since this is a dependable, Terraform will create the network before the instance
     uuid = "${openstack_networking_network_v2.consul_net.id}"
   }
+
+  depends_on = ["openstack_networking_subnet_v2.consul_subnet"]
 }
 
 # create the Consul network
@@ -26,10 +28,14 @@ resource "openstack_networking_subnet_v2" "consul_subnet" {
   ip_version      = 4
   enable_dhcp     = "true"
   dns_nameservers = "${var.nameservers}"
+
+  depends_on = ["openstack_networking_network_v2.consul_net"]
 }
 
 # associate the Consul subnet with the main router
 resource "openstack_networking_router_interface_v2" "consul_router_interface" {
   router_id = "${var.router}"
   subnet_id = "${openstack_networking_subnet_v2.consul_subnet.id}"
+
+  depends_on = ["openstack_networking_subnet_v2.consul_subnet"]
 }
