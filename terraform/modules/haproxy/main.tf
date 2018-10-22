@@ -1,10 +1,11 @@
 # create a new haproxy instance
 resource "openstack_compute_instance_v2" "haproxy" {
-  count       = "${var.replicas}"
-  name        = "haproxy${count.index+1}"
-  image_name  = "${var.image_name}"
-  flavor_name = "${var.flavor_name}"
-  key_pair    = "${var.keypair}"
+  count           = "${var.replicas}"
+  name            = "haproxy${count.index+1}"
+  image_name      = "${var.image_name}"
+  flavor_name     = "${var.flavor_name}"
+  key_pair        = "${var.keypair}"
+  security_groups = ["${var.secgroup}"]
 
   network = {
     # since this is a dependable, Terraform will create the network before the instance

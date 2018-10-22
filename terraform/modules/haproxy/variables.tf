@@ -35,3 +35,7 @@ variable "keypair" {
 variable "management" {
   description = "Management network"
 }
+
+variable "secgroup" {
+  description = "Default security group to allow"
+}

@@ -81,3 +81,16 @@ resource "openstack_compute_floatingip_associate_v2" "manager" {
   floating_ip = "${openstack_networking_floatingip_v2.manager.address}"
   instance_id = "${openstack_compute_instance_v2.manager.0.id}"
 }
+
+# create security group for internal access
+resource "openstack_compute_secgroup_v2" "manager" {
+  name        = "manager"
+  description = "Internal SSH access"
+
+  rule {
+    from_port   = 22
+    to_port     = 22
+    ip_protocol = "tcp"
+    cidr        = "192.168.1.0/24"
+  }
+}

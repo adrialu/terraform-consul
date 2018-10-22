@@ -1,10 +1,11 @@
 # create a new web instance
 resource "openstack_compute_instance_v2" "web" {
-  count       = "${var.replicas}"
-  name        = "web${count.index+1}"
-  image_name  = "${var.image_name}"
-  flavor_name = "${var.flavor_name}"
-  key_pair    = "${var.keypair}"
+  count           = "${var.replicas}"
+  name            = "web${count.index+1}"
+  image_name      = "${var.image_name}"
+  flavor_name     = "${var.flavor_name}"
+  key_pair        = "${var.keypair}"
+  security_groups = ["${var.secgroup}"]
 
   network = {
     uuid = "${openstack_networking_network_v2.web.id}"
