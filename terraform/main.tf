@@ -29,19 +29,22 @@ resource "openstack_compute_secgroup_v2" "remote" {
 
 # use modules to segregate the project a bit
 module "consul" {
-  source  = "modules/consul"
-  router  = "${openstack_networking_router_v2.router.id}"
-  keypair = "${openstack_compute_keypair_v2.remote.name}"
+  source     = "modules/consul"
+  router     = "${openstack_networking_router_v2.router.id}"
+  keypair    = "${openstack_compute_keypair_v2.manager.name}"
+  management = "${openstack_networking_network_v2.manager.id}"
 }
 
 module "web" {
-  source  = "modules/web"
-  router  = "${openstack_networking_router_v2.router.id}"
-  keypair = "${openstack_compute_keypair_v2.remote.name}"
+  source     = "modules/web"
+  router     = "${openstack_networking_router_v2.router.id}"
+  keypair    = "${openstack_compute_keypair_v2.manager.name}"
+  management = "${openstack_networking_network_v2.manager.id}"
 }
 
 module "haproxy" {
-  source  = "modules/haproxy"
-  router  = "${openstack_networking_router_v2.router.id}"
-  keypair = "${openstack_compute_keypair_v2.remote.name}"
+  source     = "modules/haproxy"
+  router     = "${openstack_networking_router_v2.router.id}"
+  keypair    = "${openstack_compute_keypair_v2.manager.name}"
+  management = "${openstack_networking_network_v2.manager.id}"
 }
