@@ -11,7 +11,12 @@ resource "openstack_compute_instance_v2" "consul_server" {
     uuid = "${openstack_networking_network_v2.consul_net.id}"
   }
 
-  depends_on = ["openstack_networking_subnet_v2.consul_subnet"]
+  network = {
+    uuid = "${var.management}"
+  }
+
+  # terraform is not smart enough to realize we need a subnet first
+  depends_on = ["openstack_networking_subnet_v2.consul"]
 }
 
 # create the Consul network
