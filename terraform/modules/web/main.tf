@@ -1,5 +1,5 @@
 # create a new web instance
-resource "openstack_compute_instance_v2" "web_server" {
+resource "openstack_compute_instance_v2" "web" {
   count       = "${var.replicas}"
   name        = "web${count.index+1}"
   image_name  = "${var.image_name}"
@@ -7,8 +7,7 @@ resource "openstack_compute_instance_v2" "web_server" {
   key_pair    = "${var.keypair}"
 
   network = {
-    # since this is a dependable, Terraform will create the network before the instance
-    uuid = "${openstack_networking_network_v2.web_net.id}"
+    uuid = "${openstack_networking_network_v2.web.id}"
   }
 
   network = {
@@ -20,27 +19,23 @@ resource "openstack_compute_instance_v2" "web_server" {
 }
 
 # create the web network
-resource "openstack_networking_network_v2" "web_net" {
+resource "openstack_networking_network_v2" "web" {
   name           = "web-net"
   admin_state_up = "true"
 }
 
 # create the web subnet
-resource "openstack_networking_subnet_v2" "web_subnet" {
+resource "openstack_networking_subnet_v2" "web" {
   name            = "web-subnet"
-  network_id      = "${openstack_networking_network_v2.web_net.id}"
+  network_id      = "${openstack_networking_network_v2.web.id}"
   cidr            = "${var.subnet_cidr}"
   ip_version      = 4
   enable_dhcp     = "true"
   dns_nameservers = "${var.nameservers}"
-
-  depends_on = ["openstack_networking_network_v2.web_net"]
 }
 
 # associate the web subnet with the main router
-resource "openstack_networking_router_interface_v2" "web_router_interface" {
+resource "openstack_networking_router_interface_v2" "web" {
   router_id = "${var.router}"
-  subnet_id = "${openstack_networking_subnet_v2.web_subnet.id}"
-
-  depends_on = ["openstack_networking_subnet_v2.web_subnet"]
+  subnet_id = "${openstack_networking_subnet_v2.web.id}"
 }
