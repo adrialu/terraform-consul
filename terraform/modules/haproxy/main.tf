@@ -11,7 +11,12 @@ resource "openstack_compute_instance_v2" "haproxy_server" {
     uuid = "${openstack_networking_network_v2.haproxy_net.id}"
   }
 
-  depends_on = ["openstack_networking_subnet_v2.haproxy_subnet"]
+  network = {
+    uuid = "${var.management}"
+  }
+
+  # terraform is not smart enough to realize we need a subnet first
+  depends_on = ["openstack_networking_subnet_v2.haproxy"]
 }
 
 # create the haproxy network
