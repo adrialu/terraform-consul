@@ -4,12 +4,12 @@ variable "replicas" {
 }
 
 variable "image_name" {
-  description = "Name of image to use for Web servers"
+  description = "Image name to use for the instances"
   default     = "Ubuntu Server 18.04 LTS (Bionic Beaver) amd64"
 }
 
 variable "flavor_name" {
-  description = "Name of flavor to use for Web servers"
+  description = "Flavor name to use for the instances"
   default     = "m1.medium"
 }
 
@@ -18,16 +18,20 @@ variable "router" {
 }
 
 variable "subnet_cidr" {
-  description = "The address space for the Web network"
+  description = "The address space for the network"
   default     = "192.168.110.0/24"
 }
 
 variable "nameservers" {
-  description = "The nameservers used by the Web network"
+  description = "The nameservers used by the instances"
   type        = "list"
   default     = ["1.1.1.1", "1.0.0.1"]
 }
 
 variable "keypair" {
-  description = "Key pair to allow access into the Web instances"
+  description = "Key pair to allow access into the instances"
+}
+
+variable "management" {
+  description = "Management network"
 }
