@@ -5,15 +5,10 @@ resource "openstack_compute_instance_v2" "haproxy" {
   image_name      = "${var.image_name}"
   flavor_name     = "${var.flavor_name}"
   key_pair        = "${var.keypair}"
-  security_groups = ["${var.secgroup}"]
+  security_groups = ["${var.manager_sg}", "${var.consul_sg}"]
 
   network = {
-    # since this is a dependable, Terraform will create the network before the instance
     uuid = "${openstack_networking_network_v2.haproxy.id}"
-  }
-
-  network = {
-    uuid = "${var.management}"
   }
 
   # terraform is not smart enough to realize we need a subnet first

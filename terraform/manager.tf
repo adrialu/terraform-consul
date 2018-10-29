@@ -59,7 +59,7 @@ resource "openstack_compute_instance_v2" "manager" {
   image_name      = "${var.manager_image}"
   flavor_name     = "${var.manager_flavor}"
   key_pair        = "${openstack_compute_keypair_v2.remote.name}"
-  security_groups = ["${openstack_compute_secgroup_v2.remote.name}"]
+  security_groups = ["${openstack_compute_secgroup_v2.remote.name}", "${openstack_compute_secgroup_v2.consul.name}"]
 
   network = {
     uuid = "${openstack_networking_network_v2.manager.id}"
@@ -91,6 +91,81 @@ resource "openstack_compute_secgroup_v2" "manager" {
     from_port   = 22
     to_port     = 22
     ip_protocol = "tcp"
-    cidr        = "192.168.1.0/24"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = -1
+    to_port     = -1
+    ip_protocol = "icmp"
+    cidr        = "0.0.0.0/0"
+  }
+}
+
+resource "openstack_compute_secgroup_v2" "consul" {
+  name        = "consul"
+  description = "Consul ports"
+
+  rule {
+    from_port   = 8300
+    to_port     = 8300
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8301
+    to_port     = 8301
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8301
+    to_port     = 8301
+    ip_protocol = "udp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8302
+    to_port     = 8302
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8302
+    to_port     = 8302
+    ip_protocol = "udp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8400
+    to_port     = 8400
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8500
+    to_port     = 8500
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8600
+    to_port     = 8600
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 8600
+    to_port     = 8600
+    ip_protocol = "udp"
+    cidr        = "0.0.0.0/0"
   }
 }

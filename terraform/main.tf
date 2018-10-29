@@ -33,7 +33,8 @@ module "consul" {
   router     = "${openstack_networking_router_v2.router.id}"
   keypair    = "${openstack_compute_keypair_v2.manager.name}"
   management = "${openstack_networking_network_v2.manager.id}"
-  secgroup   = "${openstack_compute_secgroup_v2.manager.name}"
+  manager_sg = "${openstack_compute_secgroup_v2.manager.name}"
+  consul_sg  = "${openstack_compute_secgroup_v2.consul.name}"
 }
 
 module "web" {
@@ -41,7 +42,8 @@ module "web" {
   router     = "${openstack_networking_router_v2.router.id}"
   keypair    = "${openstack_compute_keypair_v2.manager.name}"
   management = "${openstack_networking_network_v2.manager.id}"
-  secgroup   = "${openstack_compute_secgroup_v2.manager.name}"
+  manager_sg = "${openstack_compute_secgroup_v2.manager.name}"
+  consul_sg  = "${openstack_compute_secgroup_v2.consul.name}"
 }
 
 module "haproxy" {
@@ -49,5 +51,6 @@ module "haproxy" {
   router     = "${openstack_networking_router_v2.router.id}"
   keypair    = "${openstack_compute_keypair_v2.manager.name}"
   management = "${openstack_networking_network_v2.manager.id}"
-  secgroup   = "${openstack_compute_secgroup_v2.manager.name}"
+  manager_sg = "${openstack_compute_secgroup_v2.manager.name}"
+  consul_sg  = "${openstack_compute_secgroup_v2.consul.name}"
 }

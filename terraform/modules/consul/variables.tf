@@ -36,6 +36,10 @@ variable "management" {
   description = "Management network"
 }
 
-variable "secgroup" {
+variable "manager_sg" {
+  description = "Default security group to allow"
+}
+
+variable "consul_sg" {
   description = "Default security group to allow"
 }
