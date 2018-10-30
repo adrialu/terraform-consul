@@ -1,3 +1,4 @@
 # OpenStack configurables
 os_keypair = "ssh-rsa ..."
 os_external_network = ""
+os_floating_ip_pool = ""

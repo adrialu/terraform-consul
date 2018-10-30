@@ -6,20 +6,8 @@ variable "os_external_network" {
   description = "Network ID to attach the router to"
 }
 
-# manager
-variable "manager_cidr" {
-  description = "Internal management network CIDR"
-  default     = "192.168.1.0/24"
-}
-
-variable "manager_image" {
-  description = "Image used for the manager instance(s)"
-  default     = "Ubuntu Server 18.04 LTS (Bionic Beaver) amd64"
-}
-
-variable "manager_flavor" {
-  description = "Flavor used for the manager instance(s)"
-  default     = "m1.micro"
+variable "os_floating_ip_pool" {
+  description = "Name of the floating IP pool on OpenStack"
 }
 
 # global
@@ -27,4 +15,53 @@ variable "nameservers" {
   description = "The nameservers used by all instances"
   type        = "list"
   default     = ["1.1.1.1", "1.0.0.1"]
+}
+
+variable "image_name" {
+  description = "Image used for the manager instance(s)"
+  default     = "Ubuntu Server 18.04 LTS (Bionic Beaver) amd64"
+}
+
+variable "flavor_name" {
+  description = "Flavor used for the manager instance(s)"
+  default     = "m1.small"
+}
+
+# manager
+variable "manager_cidr" {
+  description = "Internal management network CIDR"
+  default     = "192.168.1.0/24"
+}
+
+# consul
+variable "consul_replicas" {
+  description = "Number of servers to create"
+  default     = "3"
+}
+
+variable "consul_cidr" {
+  description = "Internal consul network CIDR"
+  default     = "192.168.100.0/24"
+}
+
+# haproxy
+variable "haproxy_replicas" {
+  description = "Number of servers to create"
+  default     = "2"
+}
+
+variable "haproxy_cidr" {
+  description = "Internal consul network CIDR"
+  default     = "192.168.120.0/24"
+}
+
+# web
+variable "web_replicas" {
+  description = "Number of servers to create"
+  default     = "3"
+}
+
+variable "web_cidr" {
+  description = "Internal consul network CIDR"
+  default     = "192.168.110.0/24"
 }

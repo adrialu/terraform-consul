@@ -55,11 +55,15 @@ resource "openstack_networking_router_interface_v2" "manager" {
 
 # create the manager instance
 resource "openstack_compute_instance_v2" "manager" {
-  name            = "manager"
-  image_name      = "${var.manager_image}"
-  flavor_name     = "${var.manager_flavor}"
-  key_pair        = "${openstack_compute_keypair_v2.remote.name}"
-  security_groups = ["${openstack_compute_secgroup_v2.remote.name}"]
+  name        = "manager"
+  image_name  = "${var.image_name}"
+  flavor_name = "${var.flavor_name}"
+  key_pair    = "${openstack_compute_keypair_v2.remote.name}"
+
+  security_groups = [
+    "${openstack_compute_secgroup_v2.remote.name}",
+    "${openstack_compute_secgroup_v2.consul.name}",
+  ]
 
   network = {
     uuid = "${openstack_networking_network_v2.manager.id}"
@@ -73,7 +77,7 @@ resource "openstack_compute_instance_v2" "manager" {
 
 # appropriate a floating IP for the manager instance
 resource "openstack_networking_floatingip_v2" "manager" {
-  pool = "ntnu-internal"
+  pool = "${var.os_floating_ip_pool}"
 }
 
 # associate the floating IP with the manager instance
@@ -85,12 +89,19 @@ resource "openstack_compute_floatingip_associate_v2" "manager" {
 # create security group for internal access
 resource "openstack_compute_secgroup_v2" "manager" {
   name        = "manager"
-  description = "Internal SSH access"
+  description = "Internal access"
 
   rule {
     from_port   = 22
     to_port     = 22
     ip_protocol = "tcp"
-    cidr        = "192.168.1.0/24"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = -1
+    to_port     = -1
+    ip_protocol = "icmp"
+    cidr        = "0.0.0.0/0"
   }
 }
