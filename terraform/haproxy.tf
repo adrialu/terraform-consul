@@ -1,11 +1,15 @@
 # create a new haproxy instance
 resource "openstack_compute_instance_v2" "haproxy" {
-  count           = "${var.replicas}"
-  name            = "haproxy${count.index+1}"
-  image_name      = "${var.image_name}"
-  flavor_name     = "${var.flavor_name}"
-  key_pair        = "${var.keypair}"
-  security_groups = ["${var.manager_sg}", "${var.consul_sg}"]
+  count       = "${var.haproxy_replicas}"
+  name        = "haproxy${count.index+1}"
+  image_name  = "${var.image_name}"
+  flavor_name = "${var.flavor_name}"
+  key_pair    = "${openstack_compute_keypair_v2.manager.name}"
+
+  security_groups = [
+    "${openstack_compute_secgroup_v2.manager.name}",
+    "${openstack_compute_secgroup_v2.consul.name}",
+  ]
 
   network = {
     uuid = "${openstack_networking_network_v2.haproxy.id}"
@@ -25,7 +29,7 @@ resource "openstack_networking_network_v2" "haproxy" {
 resource "openstack_networking_subnet_v2" "haproxy" {
   name            = "haproxy-subnet"
   network_id      = "${openstack_networking_network_v2.haproxy.id}"
-  cidr            = "${var.subnet_cidr}"
+  cidr            = "${var.haproxy_cidr}"
   ip_version      = 4
   enable_dhcp     = "true"
   dns_nameservers = "${var.nameservers}"
@@ -33,6 +37,6 @@ resource "openstack_networking_subnet_v2" "haproxy" {
 
 # associate the haproxy subnet with the main router
 resource "openstack_networking_router_interface_v2" "haproxy" {
-  router_id = "${var.router}"
+  router_id = "${openstack_networking_router_v2.router.id}"
   subnet_id = "${openstack_networking_subnet_v2.haproxy.id}"
 }
