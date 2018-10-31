@@ -12,11 +12,13 @@
       - vim
       - tmux
       - htop
+  become: yes
 
 # Handles timezone setup (NTP package might be overkill?)
 - name: Set timezone to Europe/Oslo
   timezone:
     name: Europe/Oslo
+  become: yes
 
 # Copy custom .vimrc
 - name: Add vimrc
