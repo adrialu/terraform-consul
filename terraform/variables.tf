@@ -19,7 +19,7 @@ variable "nameservers" {
 
 variable "image_name" {
   description = "Image used for the manager instance(s)"
-  default     = "Ubuntu Server 18.04 LTS (Bionic Beaver) amd64"
+  default     = "Ubuntu IaC Python"
 }
 
 variable "flavor_name" {
