@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import re
+import json
+import subprocess
+
+# get the inventory from the terraform state file
+p = subprocess.Popen(
+	['terraform-inventory', '--list', '../terraform/terraform.tfstate'],
+	stdout=subprocess.PIPE,
+	stderr=subprocess.PIPE)
+out, err = p.communicate()
+
+# get a inventory json list from the output
+inventory = json.loads(out.strip().decode())
+
+# remove most occurances of the local IP for the manager instance
+for ip in inventory['manager']:
+	if ip.startswith('192.168.1.'):
+		inventory['manager'].remove(ip)
+
+for ip in inventory['type_openstack_compute_instance_v2']:
+	if ip.startswith('192.168.1.'):
+		inventory['type_openstack_compute_instance_v2'].remove(ip)
+
+for ip in inventory['all']['hosts']:
+	if ip.startswith('192.168.1.'):
+		inventory['all']['hosts'].remove(ip)
+
+# get the floating IP for the manager instance
+manager_ip = inventory['manager'][0]
+
+# replace the manager's internal IP with it's public IP
+inventory['manager.0'][0] = manager_ip
+inventory['all']['vars']['manager'] = manager_ip
+
+# read the contents of the ssh.cfg file
+with open('ssh.cfg', 'r') as file:
+	contents = file.read()
+
+# replace the manager's IP with the one from the current inventory
+with open('ssh.cfg', 'w') as file:
+	file.write(re.sub(r'10.212.\d+.\d+', manager_ip, contents))
+
+# dump the inventory as a json string
+print(json.dumps(inventory, indent=4))
