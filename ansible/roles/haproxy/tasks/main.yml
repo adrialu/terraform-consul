@@ -1,0 +1,12 @@
+---
+# Add Haproxy repo
+- name: install | add repository from PPA and install its signing key
+  apt_repository:
+    repo: "{{ haproxy_ppa }}"
+    update_cache: true
+
+# Install the package
+- name: install haproxy
+  apt:
+    name: haproxy
+    state: latest
