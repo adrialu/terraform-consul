@@ -16,6 +16,12 @@
   become: yes
   notify: restart_consul_service
 
+- name: Disable resolved
+  service:
+    name: systemd-resolved
+    enabled: no
+    state: stopped
+
 - name: Start consul service
   service:
     name: consul
