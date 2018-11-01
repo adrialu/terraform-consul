@@ -1,0 +1,11 @@
+# Removing and inserting netplan file because no idempotent netplan module
+network:
+    version: 2
+    ethernets:
+        ens3:
+            dhcp4: true
+            match:
+                macaddress: {{ ansible_default_ipv4.macaddress }}
+            set-name: {{ ansible_default_ipv4.alias }}
+            nameservers:
+                addresses: [127.0.0.1]
