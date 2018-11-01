@@ -1,0 +1,32 @@
+# snap packages are not supported in Ansible until 2.8
+# https://docs.ansible.com/ansible/devel/modules/snap_module.html
+- name: Install Go
+  command: snap install go --classic
+  become: yes
+  # TODO: make idempotent
+
+- name: Create service to serve the application
+  template:
+    src: consul-web-demo.service.j2
+    dest: /etc/systemd/system/consul-web-demo.service
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  vars:
+    datacenter_name: skyhigh
+  notify:
+    - reload-app-service
+
+- name: Install the web application
+  command: /snap/bin/go get -u github.com/adrialu/consul-web-demo
+  notify:
+    - restart-app-service
+  # TODO: make idempotent
+
+- name: Start application service
+  service:
+    name: consul-web-demo
+    enabled: yes
+    state: started
+  become: yes

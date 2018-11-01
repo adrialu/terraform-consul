@@ -1,0 +1,10 @@
+- name: reload-app-service
+  systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: restart-app-service
+  service:
+    name: consul-web-demo
+    state: restarted
+  become: yes
