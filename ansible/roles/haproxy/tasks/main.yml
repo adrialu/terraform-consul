@@ -4,9 +4,11 @@
   apt_repository:
     repo: "{{ haproxy_ppa }}"
     update_cache: true
+  become: yes
 
 # Install the package
 - name: install haproxy
   apt:
     name: haproxy
     state: latest
+  become: yes
