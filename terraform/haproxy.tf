@@ -9,6 +9,7 @@ resource "openstack_compute_instance_v2" "haproxy" {
   security_groups = [
     "${openstack_compute_secgroup_v2.manager.name}",
     "${openstack_compute_secgroup_v2.consul.name}",
+    "${openstack_compute_secgroup_v2.web.name}",
   ]
 
   network = {
@@ -39,4 +40,35 @@ resource "openstack_networking_subnet_v2" "haproxy" {
 resource "openstack_networking_router_interface_v2" "haproxy" {
   router_id = "${openstack_networking_router_v2.router.id}"
   subnet_id = "${openstack_networking_subnet_v2.haproxy.id}"
+}
+
+# appropriate a floating IP for the haproxy instances
+resource "openstack_networking_floatingip_v2" "haproxy" {
+  pool = "${var.os_floating_ip_pool}"
+}
+
+# associate the floating IP with the haproxy instance
+resource "openstack_compute_floatingip_associate_v2" "haproxy" {
+  floating_ip = "${openstack_networking_floatingip_v2.haproxy.address}"
+  instance_id = "${openstack_compute_instance_v2.haproxy.0.id}"
+}
+
+# create security group for HTTP/S access
+resource "openstack_compute_secgroup_v2" "web" {
+  name        = "web"
+  description = "HTTP/S access"
+
+  rule {
+    from_port   = 80
+    to_port     = 80
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = 443
+    to_port     = 443
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
 }
