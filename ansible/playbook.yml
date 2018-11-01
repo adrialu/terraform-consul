@@ -1,6 +1,14 @@
+# All hosts
 - hosts: all
   roles:
     - common
+
+# All haproxy servers
 - hosts: haproxy
   roles:
     - haproxy
+
+# All consul servers
+- hosts: consul
+  roles:
+    - consul-server
