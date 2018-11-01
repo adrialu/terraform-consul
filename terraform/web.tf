@@ -9,6 +9,7 @@ resource "openstack_compute_instance_v2" "web" {
   security_groups = [
     "${openstack_compute_secgroup_v2.manager.name}",
     "${openstack_compute_secgroup_v2.consul.name}",
+    "${openstack_compute_secgroup_v2.web.name}",
   ]
 
   network = {
