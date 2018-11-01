@@ -1,0 +1,16 @@
+---
+- name: Add vimrc
+  template:
+    src: vimrc.tpl
+    dest: /home/ubuntu/.vimrc
+    owner: ubuntu
+    group: ubuntu
+    mode: 0664
+
+- name: Add bashrc
+  template:
+    src: bashrc.tpl
+    dest: /home/ubuntu/.bashrc
+    owner: ubuntu
+    group: ubuntu
+    mode: 0644
