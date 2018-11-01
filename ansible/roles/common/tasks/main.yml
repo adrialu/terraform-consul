@@ -39,6 +39,7 @@
     group: ubuntu
     mode: 0644
 
+# Get and unzip consul
 - name: Get and unzip consul
   unarchive:
     src: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
@@ -49,6 +50,7 @@
     remote_src: yes
   become: yes
 
+# Config consul service
 - name: Config consul service
   template:
     src: consul.service.tpl

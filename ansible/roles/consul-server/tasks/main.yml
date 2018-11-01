@@ -1,11 +1,17 @@
 ---
 - name: Setup consul config
-  copy:
+  template:
     src: consul_cluster.tpl
     dest: /etc/consul.d/config.json
     owner: root
     group: root
     mode: 0644
   become: yes
+  notify: restart_consul_service
 
-- name: Setup consul service
+- name: Start consul service
+  service:
+    name: consul
+    enabled: yes
+    state: started
+  become: yes
