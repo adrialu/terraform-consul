@@ -15,3 +15,8 @@
 - hosts: consul
   roles:
     - consul-server
+
+# Set up consul agents on all hosts except for the consul servers
+- hosts: all:!consul
+  roles:
+    - consul-client
