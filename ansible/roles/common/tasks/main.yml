@@ -37,3 +37,13 @@
     owner: ubuntu
     group: ubuntu
     mode: 0644
+
+- name: Get and unzip consul
+  unarchive:
+    src: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
+    dest: /usr/local/bin
+    mode: 755
+    owner: root
+    group: root
+    remote_src: yes
+  become: yes
