@@ -1,0 +1,16 @@
+---
+- name: Remove original netplan config
+  file:
+    path: /etc/netplan/50-cloud-init.yaml
+    state: absent
+  become: yes
+
+- name: Add custom netplan config
+  template:
+    src: 51-cloud-init.yaml.j2
+    dest: /etc/netplan/51-cloud-init.yaml
+    user: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: netplan_apply

@@ -1,0 +1,3 @@
+- name: netplan_apply
+  shell: netplan apply
+  become: yes
