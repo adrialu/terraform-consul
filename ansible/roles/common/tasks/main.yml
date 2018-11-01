@@ -20,21 +20,3 @@
   timezone:
     name: Europe/Oslo
   become: yes
-
-# Copy custom .vimrc
-- name: Add vimrc
-  template:
-    src: vimrc.tpl
-    dest: /home/ubuntu/.vimrc
-    owner: ubuntu
-    group: ubuntu
-    mode: 0664
-
-# Copy custom .bashrc
-- name: Add bashrc
-  template:
-    src: bashrc.tpl
-    dest: /home/ubuntu/.bashrc
-    owner: ubuntu
-    group: ubuntu
-    mode: 0644
