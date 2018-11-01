@@ -1,0 +1,22 @@
+---
+# Get and unzip consul
+- name: Get and unzip consul
+  unarchive:
+    src: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
+    dest: /usr/local/bin
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: yes
+  become: yes
+
+# Config consul service
+- name: Config consul service
+  template:
+    src: consul.service.tpl
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: reload_consul_service
