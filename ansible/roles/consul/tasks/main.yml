@@ -1,0 +1,11 @@
+---
+- name: Setup consul config
+  copy:
+    src: consul_cluster.tpl
+    dest: /etc/consul.d/config.json
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+
+- name: Setup consul service
