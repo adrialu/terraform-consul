@@ -1,0 +1,4 @@
+---
+- name: reload_consul_service
+  systemd:
+    daemon_reload: yes

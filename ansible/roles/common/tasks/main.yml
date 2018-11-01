@@ -48,3 +48,13 @@
     group: root
     remote_src: yes
   become: yes
+
+- name: Config consul service
+  copy:
+    src: consul_service.tpl
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: reload_consul_service
