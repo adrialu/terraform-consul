@@ -8,7 +8,7 @@
 
 - name: Setup consul config
   template:
-    src: consul_cluster.json.j2
+    src: consul_client.json.j2
     dest: /etc/consul.d/config.json
     owner: root
     group: root

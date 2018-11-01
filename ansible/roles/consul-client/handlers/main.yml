@@ -1,0 +1,6 @@
+---
+- name: restart_consul_service
+  service:
+    name: consul
+    state: restarted
+  become: yes
