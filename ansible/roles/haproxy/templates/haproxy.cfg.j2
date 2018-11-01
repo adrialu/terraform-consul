@@ -44,5 +44,5 @@ frontend web
 backend nodes
 	mode http
 	balance roundrobin
-	{% for host in groups['web'] %}server {{ hostvars[host].ansible_hostname }} {{ hostvars[host].ansible_default_ipv4.address }}:8080 check
+	{% for host in groups['web'] %}server {{ hostvars[host].ansible_hostname }} {{ hostvars[host].ansible_hostname }}.node.consul:8080 check
 	{% endfor %}
