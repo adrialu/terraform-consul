@@ -1,0 +1,16 @@
+[Unit]
+Description=Consul Startup process
+After=network.target
+
+[Service]
+Type=simple
+Environment=PORT=8080
+Environment=DATACENTER={{ datacenter_name }}
+Environment=IFACE={{ ansible_default_ipv4.alias }}
+ExecStart=/home/ubuntu/go/bin/consul-web-demo
+TimeoutStartSec=30
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
