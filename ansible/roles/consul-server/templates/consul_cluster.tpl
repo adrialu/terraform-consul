@@ -8,6 +8,7 @@
 	"ports": {
 		"dns": 53
 	},
+	"recursors": ["1.1.1.1", "1.0.0.1"],
 	"enable_syslog": true,
 	"ui": true
 }
