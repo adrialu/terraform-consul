@@ -6,11 +6,6 @@
     - netplan
     - consul
 
-# All haproxy servers
-- hosts: haproxy
-  roles:
-    - haproxy
-
 # All consul servers
 - hosts: consul
   roles:
@@ -20,3 +15,8 @@
 - hosts: all:!consul
   roles:
     - consul-client
+
+# All haproxy servers
+- hosts: haproxy
+  roles:
+    - haproxy
