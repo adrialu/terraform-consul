@@ -21,6 +21,7 @@
     name: systemd-resolved
     enabled: no
     state: stopped
+  become: yes
 
 - name: Start consul service
   service:
