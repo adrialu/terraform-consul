@@ -23,8 +23,8 @@
 
 # Copy custom .vimrc
 - name: Add vimrc
-  copy:
-    src: ../templates/vimrc.tpl
+  template:
+    src: vimrc.tpl
     dest: /home/ubuntu/.vimrc
     owner: ubuntu
     group: ubuntu
@@ -32,8 +32,8 @@
 
 # Copy custom .bashrc
 - name: Add bashrc
-  copy:
-    src: ../templates/bashrc.tpl
+  template:
+    src: bashrc.tpl
     dest: /home/ubuntu/.bashrc
     owner: ubuntu
     group: ubuntu
@@ -50,8 +50,8 @@
   become: yes
 
 - name: Config consul service
-  copy:
-    src: consul_service.tpl
+  template:
+    src: consul.service.tpl
     dest: /etc/systemd/system/consul.service
     owner: root
     group: root
