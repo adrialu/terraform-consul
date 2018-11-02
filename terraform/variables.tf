@@ -29,7 +29,7 @@ variable "flavor_name" {
 
 # manager
 variable "manager_cidr" {
-  description = "Internal management network CIDR"
+  description = "Internal network CIDR"
   default     = "192.168.1.0/24"
 }
 
@@ -40,7 +40,7 @@ variable "consul_replicas" {
 }
 
 variable "consul_cidr" {
-  description = "Internal consul network CIDR"
+  description = "Internal network CIDR"
   default     = "192.168.100.0/24"
 }
 
@@ -58,10 +58,10 @@ variable "proxy_cidr" {
 # web
 variable "web_replicas" {
   description = "Number of servers to create"
-  default     = "3"
+  default     = "5"
 }
 
 variable "web_cidr" {
-  description = "Internal consul network CIDR"
+  description = "Internal network CIDR"
   default     = "192.168.110.0/24"
 }
