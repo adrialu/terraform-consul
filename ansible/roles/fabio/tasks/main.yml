@@ -36,3 +36,10 @@
     msg: "Detected application change"
   notify:
     - restart_fabio_service
+
+- name: Start application service
+  service:
+    name: fabio
+    enabled: yes
+    state: started
+  become: yes
