@@ -44,14 +44,14 @@ variable "consul_cidr" {
   default     = "192.168.100.0/24"
 }
 
-# haproxy
-variable "haproxy_replicas" {
+# proxy
+variable "proxy_replicas" {
   description = "Number of servers to create"
-  default     = "2"
+  default     = "1"
 }
 
-variable "haproxy_cidr" {
-  description = "Internal consul network CIDR"
+variable "proxy_cidr" {
+  description = "Internal network CIDR"
   default     = "192.168.120.0/24"
 }
 
