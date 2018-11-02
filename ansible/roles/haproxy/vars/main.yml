@@ -1,3 +1,0 @@
----
-
-haproxy_ppa: "ppa:vbernat/haproxy-{{ haproxy_version }}"
