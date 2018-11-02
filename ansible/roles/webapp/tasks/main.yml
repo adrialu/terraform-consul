@@ -1,12 +1,3 @@
-# snap packages are not supported in Ansible until 2.8,
-# so we've imported it from devel into /library
-# https://docs.ansible.com/ansible/devel/modules/snap_module.html
-- name: Install Go
-  snap:
-    name: go
-    classic: yes
-  become: yes
-
 - name: Create service to serve the application
   template:
     src: consul-web-demo.service.j2
