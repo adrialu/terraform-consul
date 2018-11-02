@@ -58,7 +58,7 @@ variable "proxy_cidr" {
 # web
 variable "web_replicas" {
   description = "Number of servers to create"
-  default     = "5"
+  default     = "3"
 }
 
 variable "web_cidr" {
