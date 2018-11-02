@@ -42,7 +42,7 @@ resource "openstack_networking_router_interface_v2" "web" {
   subnet_id = "${openstack_networking_subnet_v2.web.id}"
 }
 
-# create security group for HTTP/S access
+# create security group for HTTP/S access, only accessible internally
 resource "openstack_compute_secgroup_v2" "web" {
   name        = "web"
   description = "HTTP/S access"

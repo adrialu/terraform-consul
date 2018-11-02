@@ -1,3 +1,8 @@
+# This file defines the variables used throughout all the other Terraform files in the project.
+# The first three are OpenStack-specific, giving information about our environment.
+# The remainder have defaults, and all the variables can be overwritten/defined in a separate
+# `terraform.tfvars` file. See `terraform.tfvars.example` for an example of required variables.
+
 variable "os_keypair" {
   description = "Public key pair used to access the manager instances."
 }

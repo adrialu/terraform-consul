@@ -1,4 +1,4 @@
-# create a new Consul instance
+# create Consul instance(s)
 resource "openstack_compute_instance_v2" "consul" {
   count       = "${var.consul_replicas}"
   name        = "consul${count.index+1}"
@@ -7,7 +7,7 @@ resource "openstack_compute_instance_v2" "consul" {
   key_pair    = "${openstack_compute_keypair_v2.manager.name}"
 
   security_groups = [
-    "${openstack_compute_secgroup_v2.manager.name}",
+    "${openstack_compute_secgroup_v2.manager.name}", # defined in manager.tf
     "${openstack_compute_secgroup_v2.consul.name}",
   ]
 
@@ -41,7 +41,7 @@ resource "openstack_networking_router_interface_v2" "consul" {
   subnet_id = "${openstack_networking_subnet_v2.consul.id}"
 }
 
-# assign ports relevant to the Consul application in a security group
+# create security group for Consul application communication, only accessible internally
 resource "openstack_compute_secgroup_v2" "consul" {
   name        = "consul"
   description = "Consul ports"

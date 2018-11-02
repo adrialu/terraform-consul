@@ -7,9 +7,9 @@ resource "openstack_compute_instance_v2" "proxy" {
   key_pair    = "${openstack_compute_keypair_v2.manager.name}"
 
   security_groups = [
-    "${openstack_compute_secgroup_v2.manager.name}",
-    "${openstack_compute_secgroup_v2.consul.name}",
-    "${openstack_compute_secgroup_v2.http.name}",
+    "${openstack_compute_secgroup_v2.manager.name}", # defined in manager.tf
+    "${openstack_compute_secgroup_v2.consul.name}",  # defined in consul.tf
+    "${openstack_compute_secgroup_v2.http.name}",    # defined below
   ]
 
   network = {
@@ -53,7 +53,7 @@ resource "openstack_compute_floatingip_associate_v2" "proxy" {
   instance_id = "${openstack_compute_instance_v2.proxy.0.id}"
 }
 
-# create security group for http access
+# create security group for external HTTP access
 resource "openstack_compute_secgroup_v2" "http" {
   name        = "http"
   description = "HTTP/S access"
