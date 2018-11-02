@@ -10,7 +10,7 @@ In order of execution:
 - adds custom bashrc and vimrc files (for demonstration/utility purposes)
 
 `netplan`
-- replaces the _cloud-init_-provided netplan configuration
+- replaces the [cloud-init](https://launchpad.net/cloud-init)-provided netplan configuration
 	- we opted to replace the configuration instead of using a module to make it idempotent
 
 `consul`
@@ -26,10 +26,10 @@ In order of execution:
 - installs Go, used to install the remaining tools
 
 `webapp`
-- installs the [demo web application]()
+- installs the [demo web application](https://github.com/adrialu/consul-web-demo)
 
 `fabio`
-- installs the [Fabio]() web proxy application, connecting it to Consul
+- installs the [Fabio](https://fabiolb.net/) web proxy application, connecting it to Consul
 
 ## Contents
 
