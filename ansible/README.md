@@ -4,7 +4,7 @@
 - defines all roles for machines in the inventory
 
 `inventory`
-- a wrapper for [terraform-inventory]() that creates a dynamic inventory for Ansible
+- a wrapper for [terraform-inventory](https://github.com/adammck/terraform-inventory) that creates a dynamic inventory for Ansible
 - it also cleans up some extra inventory groups that _terraform-inventory_ defines
 - it also updates the `ssh.cfg` file
 	- `ssh.cfg` defines SSH configuration used by Ansible (used instead of `~/.ssh/config`)
@@ -22,7 +22,7 @@
 
 `library/`
 - holds non-default Ansible modules
-	- the only one we needed was the [Snap]() package module, which is slated for Ansible 2.8, the next version
+	- the only one we needed was the [Snap](https://snapcraft.io/) package module, which is slated for Ansible 2.8, the next version
 
 ## Usage
 
