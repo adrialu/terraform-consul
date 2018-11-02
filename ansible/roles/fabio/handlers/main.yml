@@ -1,9 +1,9 @@
-- name: reload-fabio-service
+- name: reload_fabio_service
   systemd:
     daemon_reload: yes
   become: yes
 
-- name: restart-fabio-service
+- name: restart_fabio_service
   service:
     name: fabio
     state: restarted

@@ -1,4 +1,4 @@
-# All hosts
+# install applications and configure them for all hosts
 - hosts: all
   roles:
     - common
@@ -6,27 +6,24 @@
     - netplan
     - consul
 
-# All consul servers
+# separate the consul servers from the rest with separate roles
 - hosts: consul
   roles:
     - consul-server
 
-# Set up consul agents on all hosts except for the consul servers
 - hosts: all:!consul
   roles:
     - consul-client
 
-# install go on proxy and web servers
+
 - hosts: proxy:web
   roles:
     - go
 
-# install the web app on the web servers
 - hosts: web
   roles:
     - webapp
 
-# install fabio on the proxy servers
 - hosts: proxy
   roles:
     - fabio

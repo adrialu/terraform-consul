@@ -1,11 +1,15 @@
----
-- name: Remove original netplan config
+# We found no modules "good enough" to handle netplan configuration, nor did we find
+# any decent modules to modify YAML in-line, so we opted to replace the cloud-init-
+# provided netplan configuration with a custom one instead. This also allowed us to
+# use templating with dynamic variables, which is always a plus!
+
+- name: Remove cloud-init provided configuration
   file:
     path: /etc/netplan/50-cloud-init.yaml
     state: absent
   become: yes
 
-- name: Add custom netplan config
+- name: Add custom configuration
   template:
     src: 51-cloud-init.yaml.j2
     dest: /etc/netplan/51-cloud-init.yaml

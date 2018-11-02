@@ -1,4 +1,4 @@
-- name: Create fabio service
+- name: Add service configuration
   template:
     src: fabio.service.j2
     dest: /etc/systemd/system/fabio.service
@@ -9,27 +9,30 @@
   vars:
     datacenter_name: skyhigh
   notify:
-    - reload-fabio-service
-    - restart-fabio-service
+    - reload_fabio_service
+    - restart_fabio_service
 
-- name: Get checksum of existing application
+# `go get` is not idempotent, so we grab the checksum before and after running it
+- name: Get old application checksum
   stat:
     path: /home/ubuntu/go/bin/fabio
   register: before_stat
 
-- name: Install fabio
+# we force this task to never trigger "changed", we handle that ourselves
+- name: Install from source
   command: /snap/bin/go get -u github.com/fabiolb/fabio
   changed_when: false
 
-- name: Get checksum of updated application
+- name: Get new application checksum
   stat:
     path: /home/ubuntu/go/bin/fabio
   register: after_stat
 
-- name: Restart application service
+# finally compare checksums, completing the idempotency issues with `go get`
+- name: Compare checksums
   when: '"checksum" not in before_stat.stat or before_stat.stat.checksum != after_stat.stat.checksum'
   changed_when: '"checksum" not in before_stat.stat or before_stat.stat.checksum != after_stat.stat.checksum'
   debug:
     msg: "Detected application change"
   notify:
-    - restart-fabio-service
+    - restart_fabio_service
