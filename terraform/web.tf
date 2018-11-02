@@ -41,3 +41,30 @@ resource "openstack_networking_router_interface_v2" "web" {
   router_id = "${openstack_networking_router_v2.router.id}"
   subnet_id = "${openstack_networking_subnet_v2.web.id}"
 }
+
+# create security group for HTTP/S access
+resource "openstack_compute_secgroup_v2" "web" {
+  name        = "web"
+  description = "HTTP/S access"
+
+  rule {
+    from_port   = 80
+    to_port     = 80
+    ip_protocol = "tcp"
+    cidr        = "192.168.0.0/16"
+  }
+
+  rule {
+    from_port   = 8080
+    to_port     = 8080
+    ip_protocol = "tcp"
+    cidr        = "192.168.0.0/16"
+  }
+
+  rule {
+    from_port   = 443
+    to_port     = 443
+    ip_protocol = "tcp"
+    cidr        = "192.168.0.0/16"
+  }
+}

@@ -1,0 +1,35 @@
+- name: Create fabio service
+  template:
+    src: fabio.service.j2
+    dest: /etc/systemd/system/fabio.service
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  vars:
+    datacenter_name: skyhigh
+  notify:
+    - reload-fabio-service
+    - restart-fabio-service
+
+- name: Get checksum of existing application
+  stat:
+    path: /home/ubuntu/go/bin/fabio
+  register: before_stat
+
+- name: Install fabio
+  command: /snap/bin/go get -u github.com/fabiolb/fabio
+  changed_when: false
+
+- name: Get checksum of updated application
+  stat:
+    path: /home/ubuntu/go/bin/fabio
+  register: after_stat
+
+- name: Restart application service
+  when: '"checksum" not in before_stat.stat or before_stat.stat.checksum != after_stat.stat.checksum'
+  changed_when: '"checksum" not in before_stat.stat or before_stat.stat.checksum != after_stat.stat.checksum'
+  debug:
+    msg: "Detected application change"
+  notify:
+    - restart-fabio-service

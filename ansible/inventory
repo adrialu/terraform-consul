@@ -28,9 +28,9 @@ for ip in inventory['all']['hosts']:
 		inventory['all']['hosts'].remove(ip)
 
 # remove occurances of the haproxy floating IP
-for ip in inventory['haproxy']:
+for ip in inventory['proxy']:
 	if ip.startswith('10.212.'):
-		inventory['haproxy'].remove(ip)
+		inventory['proxy'].remove(ip)
 		inventory['all']['hosts'].remove(ip)
 
 # get the floating IP for the manager instance

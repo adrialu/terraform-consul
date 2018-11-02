@@ -16,17 +16,17 @@
   roles:
     - consul-client
 
-# install go on web servers
-- hosts: web
+# install go on proxy and web servers
+- hosts: proxy:web
   roles:
     - go
-
-# All haproxy servers
-- hosts: haproxy
-  roles:
-    - haproxy
 
 # install the web app on the web servers
 - hosts: web
   roles:
     - webapp
+
+# install fabio on the proxy servers
+- hosts: proxy
+  roles:
+    - fabio
