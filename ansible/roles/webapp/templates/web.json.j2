@@ -2,6 +2,11 @@
     "service": {
         "name": "web-application",
         "port": 8080,
-        "tags": ["go", "demonstration", "webapp"]
+        "tags": ["go", "demonstration", "webapp"],
+        "check": {
+            "name": "/health",
+            "http": "http://{{ ansible_default_ipv4.address }}:8080/health",
+            "interval": "10s"
+        }
     }
 }
