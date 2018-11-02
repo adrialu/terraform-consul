@@ -41,7 +41,7 @@ resource "openstack_networking_router_interface_v2" "consul" {
   subnet_id = "${openstack_networking_subnet_v2.consul.id}"
 }
 
-// assign ports relevant to the Consul application in a security group
+# assign ports relevant to the Consul application in a security group
 resource "openstack_compute_secgroup_v2" "consul" {
   name        = "consul"
   description = "Consul ports"
