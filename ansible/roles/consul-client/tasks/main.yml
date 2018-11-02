@@ -13,6 +13,7 @@
     owner: root
     group: root
     mode: 0644
+    validate: 'consul validate /etc/consul.d'
   become: yes
   notify: restart_consul_service
 
