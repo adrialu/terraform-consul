@@ -50,62 +50,62 @@ resource "openstack_compute_secgroup_v2" "consul" {
     from_port   = 8300
     to_port     = 8300
     ip_protocol = "tcp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8301
     to_port     = 8301
     ip_protocol = "tcp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8301
     to_port     = 8301
     ip_protocol = "udp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8302
     to_port     = 8302
     ip_protocol = "tcp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8302
     to_port     = 8302
     ip_protocol = "udp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8400
     to_port     = 8400
     ip_protocol = "tcp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8500
     to_port     = 8500
     ip_protocol = "tcp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8600
     to_port     = 8600
     ip_protocol = "tcp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 
   rule {
     from_port   = 8600
     to_port     = 8600
     ip_protocol = "udp"
-    cidr        = "0.0.0.0/0"
+    cidr        = "192.168.0.0/16"
   }
 }
