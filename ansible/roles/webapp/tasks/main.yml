@@ -20,11 +20,27 @@
   notify:
     - reload-app-service
 
+- name: Get checksum of existing application
+  stat:
+    path: /home/ubuntu/go/bin/consul-web-demo
+  register: before_stat
+
 - name: Install the web application
   command: /snap/bin/go get -u github.com/adrialu/consul-web-demo
+  changed_when: false
+
+- name: Get checksum of updated application
+  stat:
+    path: /home/ubuntu/go/bin/consul-web-demo
+  register: after_stat
+
+- name: Restart application service
+  when: '"checksum" not in before_stat.stat or before_stat.stat.checksum != after_stat.stat.checksum'
+  changed_when: '"checksum" not in before_stat.stat or before_stat.stat.checksum != after_stat.stat.checksum'
+  debug:
+    msg: "Detected application change"
   notify:
     - restart-app-service
-  # TODO: make idempotent
 
 - name: Start application service
   service:
