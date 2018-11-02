@@ -8,3 +8,9 @@
     name: consul-web-demo
     state: restarted
   become: yes
+
+- name: restart-consul
+  service:
+    name: consul
+    state: restarted
+  become: yes

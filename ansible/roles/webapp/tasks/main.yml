@@ -48,3 +48,13 @@
     enabled: yes
     state: started
   become: yes
+
+- name: Register service with consul
+  template:
+    src: web.json.j2
+    dest: /etc/consul.d/web.json
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: restart-consul
