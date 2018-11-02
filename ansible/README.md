@@ -30,6 +30,10 @@
 # install dependencies
 go get -u github.com/adammck/terraform-inventory
 
+# make sure SSH Agent is running and has the required keys
+eval $(ssh-agent)
+ssh-add ~/.ssh/terraform.pem
+
 # execute the playbook, using the inventory script
 ansible-playbook -i inventory playbook.yml
 ```
