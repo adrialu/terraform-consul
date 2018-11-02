@@ -13,6 +13,7 @@
       - tmux
       - htop
       - unzip
+      - gcc
   become: yes
 
 # Handles timezone setup (NTP package might be overkill?)
