@@ -1,12 +1,4 @@
----
-- name: create folders
-  file:
-    path: /etc/consul.d
-    state: directory
-    mode: 0755
-  become: yes
-
-- name: Setup consul config
+- name: Add client configuration
   template:
     src: consul_client.json.j2
     dest: /etc/consul.d/config.json
@@ -16,14 +8,15 @@
   become: yes
   notify: restart_consul_service
 
-- name: Disable resolved
+# the resolved service has bound port 53, preventing Consul from acting as a DNS
+- name: Disable resolved service
   service:
     name: systemd-resolved
     enabled: no
     state: stopped
   become: yes
 
-- name: Start consul service
+- name: Start service
   service:
     name: consul
     enabled: yes

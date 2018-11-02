@@ -1,13 +1,9 @@
----
-# Handles base package setup:
-- name: Installing base packages
+- name: Install base packages
   apt:
-    # Install a set of packages with latest version, update cache at the same time
     name: "{{ packages }}"
     state: latest
     update_cache: yes
   vars:
-    # Add vim,tmux,htop just to demonstrate
     packages:
       - vim
       - tmux
@@ -16,8 +12,7 @@
       - gcc
   become: yes
 
-# Handles timezone setup (NTP package might be overkill?)
-- name: Set timezone to Europe/Oslo
+- name: Set timezone
   timezone:
     name: Europe/Oslo
   become: yes

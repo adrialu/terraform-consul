@@ -1,15 +1,15 @@
-- name: reload-app-service
+- name: reload_app_service
   systemd:
     daemon_reload: yes
   become: yes
 
-- name: restart-app-service
+- name: restart_app_service
   service:
     name: consul-web-demo
     state: restarted
   become: yes
 
-- name: restart-consul
+- name: restart_consul
   service:
     name: consul
     state: restarted

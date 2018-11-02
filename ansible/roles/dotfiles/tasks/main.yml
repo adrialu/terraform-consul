@@ -1,5 +1,4 @@
----
-- name: Add vimrc
+- name: Add VIM configuration
   template:
     src: vimrc.tpl
     dest: /home/ubuntu/.vimrc
@@ -7,7 +6,7 @@
     group: ubuntu
     mode: 0664
 
-- name: Add bashrc
+- name: Add Bash configuration
   template:
     src: bashrc.tpl
     dest: /home/ubuntu/.bashrc
