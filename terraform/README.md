@@ -26,6 +26,10 @@
 	- a `web` network is used by the `proxy` and `web` instances for HTTP communication
 	- each network has its own CIDR
 
+`terraform.tfvars`
+- defines variable beforehand instead of having to input them interactively
+	- see `terraform.tfvars.example` and comments in `variables.tf`
+
 ## Usage
 
 ```
