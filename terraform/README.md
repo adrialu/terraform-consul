@@ -30,6 +30,10 @@
 - defines variable beforehand instead of having to input them interactively
 	- see `terraform.tfvars.example` and comments in `variables.tf`
 
+`terraform.tfstate`
+- holds the current state of the applied infrastructure
+	- should never be version controlled
+
 ## Usage
 
 ```
