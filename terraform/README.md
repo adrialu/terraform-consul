@@ -32,7 +32,7 @@
 
 `terraform.tfstate`
 - holds the current state of the applied infrastructure
-	- should never be version controlled
+	- should never be version controlled (publicly)
 
 ## Usage
 
