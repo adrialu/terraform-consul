@@ -19,6 +19,7 @@
 `group_vars`
 - holds group-wide variables for the inventory
 	- used to tell Ansible which SSH config file to use (see `ssh.cfg`)
+	- used to tell Ansible which Python binary to use
 
 `library/`
 - holds non-default Ansible modules
