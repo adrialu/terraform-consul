@@ -1,0 +1,13 @@
+{
+  "datacenter": "skyhigh",
+  "data_dir": "/var/consul",
+  "retry_join": [{% for host in groups['consul'] %}
+      "{{ hostvars[host].ansible_default_ipv4.address }}"{{ ", " if not loop.last else "" }}
+  {% endfor %}],
+  "client_addr": "0.0.0.0",
+  "ports": {
+    "dns": 53
+  },
+  "recursors": ["1.1.1.1", "1.0.0.1"],
+  "enable_syslog": true
+}

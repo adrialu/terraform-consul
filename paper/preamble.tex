@@ -1,0 +1,81 @@
+%             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+%                     Version 2, December 2004
+%
+%  Copyright © 2018 Adrian Lund-Lange <adrialu@stud.ntnu.no>
+%
+%  Everyone is permitted to copy and distribute verbatim or modified
+%  copies of this licensed document, and changing it is allowed as long
+%  as the name is changed.
+%
+%             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+%   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+%
+%   0. You just DO WHAT THE FUCK YOU WANT TO.
+
+\documentclass{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[textfont=it,labelfont=it]{caption}
+
+% set fonts
+\usepackage{helvet,lmodern}
+\usepackage{inconsolata}
+\renewcommand{\sfdefault}{lmss}
+\renewcommand{\rmdefault}{lmss}
+
+ % clickable, colored links in pdf
+\usepackage[colorlinks,citecolor=blue,linkcolor=blue,urlcolor=blue]{hyperref}
+
+% syntax highlighted code blocks and text
+\usepackage{minted}
+\usepackage{scrextend}
+\usepackage{xcolor}
+\usemintedstyle{vs} % syntax theme
+\definecolor{inlinebg}{rgb}{0.9,0.9,0.9}
+\setmintedinline{bgcolor=inlinebg,fontsize=\small} % color in-line code background
+% \pre{lang}{echo Hello World}
+\newcommand{\pre}[2]{\mintinline{#1}{#2}}
+% \begin{code}{lang} echo Hello World \end{code}
+\newenvironment{code}[1]{\VerbatimEnvironment\begin{minted}[fontsize=\small,xleftmargin=3em]{#1}}{\end{minted}}
+% \bashfile{path}, \yamlfile{path}, \jsonfile{path}, ...
+\newmintedfile{bash}{xleftmargin=3em}
+\newmintedfile{yaml}{xleftmargin=3em}
+\newmintedfile{json}{xleftmargin=3em}
+\newmintedfile{text}{xleftmargin=3em}
+\newmintedfile{shell}{xleftmargin=3em}
+
+% image embedding support with '\image[scale=0.5]{filename}`
+\usepackage{graphicx}
+\graphicspath{{images/}} % load images from ./images/ directory
+% \image{filename.png}
+\let\image\includegraphics
+
+% section tweaks
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage} % page break on every new section
+\titlelabel{\thetitle.\quad} % add a . after the number in section
+
+% toc tweaks
+\usepackage{setspace}
+\setcounter{tocdepth}{2} % don't show subsubsections and beyond
+
+% cite tweaks
+\usepackage[super,comma,square]{natbib} % cite formatting, superscript + brackets + comma-separated
+
+% misc options
+\setlength{\parindent}{0pt} % no indentation on paragraphs
+
+% \email{foo@bar.com}
+\newcommand\email[1]{\href{mailto:#1}{#1}}
+% \begin{authors}{tabularargs} ... \end{authors}
+\newenvironment{authors}[1]{\begin{center}\large\begin{tabular}{#1}}{\end{tabular}\end{center}}
+% \author{Name Surname}{ID}{email}
+\renewcommand\author[3]{{\centering #1\hspace{2mm}-\hspace{2mm}\textit{#2}\hspace{2mm}-\hspace{2mm}\email{#3}\par}}
+% \title{Document Title}
+\renewcommand\title[1]{\vspace*{2cm}\thispagestyle{empty}{\centering\Huge #1\par\vspace{2cm}}}
+% \timestamp
+\newcommand\timestamp{\vspace{4cm}\begin{center}\today\end{center}\newpage}
+% \abstract{Lorem ipsum...}
+\renewenvironment{abstract}{\vfill\small\quotation{\bfseries\begin{center}\abstractname\end{center}\par\nobreak\smallskip}}{\endquotation}

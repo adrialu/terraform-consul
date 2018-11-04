@@ -1,0 +1,16 @@
+- name: Create configuration directories
+  file:
+    path: /etc/consul.d
+    state: directory
+    mode: 0755
+  become: yes
+
+- name: Add server configuration
+  template:
+    src: consul.json.j2
+    dest: /etc/consul.d/config.json
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: restart_consul_service

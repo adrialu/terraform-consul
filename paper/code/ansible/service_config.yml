@@ -1,0 +1,9 @@
+- name: Add service configuration
+  copy:
+    src: consul.service
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: reload_consul_service

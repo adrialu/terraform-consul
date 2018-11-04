@@ -1,0 +1,12 @@
+{
+    "service": {
+        "name": "demo",
+        "port": 8080,
+        "tags": ["urlprefix-:80 proto=tcp"],
+        "check": {
+            "name": "/health",
+            "http": "http://{{ ansible_default_ipv4.address }}:8080/health",
+            "interval": "10s"
+        }
+    }
+}
